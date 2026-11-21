@@ -1,3 +1,4 @@
+import { PickupRoom } from './PickupRoom';
 import { useState } from 'react';
 import { api, kg, money, query } from './api';
 import { orderActions } from './order-actions.mjs';
@@ -155,6 +156,8 @@ export function OrdersView({ role }) {
         <p className="muted">{order.farmer_name} → {order.buyer_name}</p>
         {order.carrier_name && <p className="muted">Transport by {order.carrier_name}</p>}</div>
       <div className="form order-side"><Status value={order.status}/>
+        {['FARMER','LOGISTICS'].includes(role) && order.carrier_id &&
+          <PickupRoom orderId={order.id} role={role}/>}
         <div className="actions">{orderActions(role, order.status).map(action => {
                 const submit = (carrierId) => {
                     if (action === 'CANCEL' && !window.confirm('Cancel this order?'))
