@@ -1,0 +1,44 @@
+CREATE TABLE users (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  email VARCHAR(160) UNIQUE NOT NULL,
+  name VARCHAR(100) NOT NULL,
+  role VARCHAR(16) NOT NULL CHECK (role IN ('FARMER','BUYER','LOGISTICS','ADMIN')),
+  password_hash VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE listings (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  farmer_id BIGINT NOT NULL,
+  crop VARCHAR(40) NOT NULL,
+  district VARCHAR(80) NOT NULL,
+  description VARCHAR(1000) NOT NULL,
+  version BIGINT NOT NULL DEFAULT 0,
+  harvest_date DATE NOT NULL,
+  available_from DATE NOT NULL,
+  available_until DATE NOT NULL,
+  CHECK (harvest_date <= available_from AND available_from <= available_until),
+  available_kg BIGINT NOT NULL CHECK (available_kg >= 0),
+  price_per_kg DECIMAL(10,2) NOT NULL CHECK (price_per_kg > 0),
+  status VARCHAR(16) NOT NULL DEFAULT 'ACTIVE' CHECK (status IN ('ACTIVE','PAUSED','REMOVED','DELETED')),
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (farmer_id) REFERENCES users(id)
+);
+
+CREATE TABLE orders (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+  listing_id BIGINT NOT NULL,
+  farmer_id BIGINT NOT NULL,
+  buyer_id BIGINT NOT NULL,
+  carrier_id BIGINT,
+  quantity_kg INT NOT NULL CHECK (quantity_kg > 0),
+  price_per_kg DECIMAL(10,2) NOT NULL,
+  crop VARCHAR(40) NOT NULL,
+  district VARCHAR(80) NOT NULL,
+  status VARCHAR(16) NOT NULL DEFAULT 'REQUESTED'
+    CHECK (status IN ('REQUESTED','ACCEPTED','REJECTED','CANCELLED','ASSIGNED','PICKED_UP','DELIVERED')),
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (listing_id) REFERENCES listings(id),
+  FOREIGN KEY (farmer_id) REFERENCES users(id),
+  FOREIGN KEY (buyer_id) REFERENCES users(id),
+  FOREIGN KEY (carrier_id) REFERENCES users(id)
+);

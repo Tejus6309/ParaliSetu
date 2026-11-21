@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root { color: #252d24; background: #f7f7ef; font-family: system-ui, sans-serif; }
+  :focus-visible { outline: 3px solid #96601e; outline-offset: 3px; }
+  h1, h2 { font-family: Georgia, serif; font-weight: 700; letter-spacing: -.025em; }
+  h1 { font-size: clamp(2.25rem, 5vw, 3.5rem); line-height: 1.05; }
+  h2 { @apply text-2xl; }
+  label { @apply grid gap-1 text-sm font-semibold min-w-0; }
+  input, select, textarea {
+    @apply w-full min-w-0 rounded-md border bg-white px-3 py-2 text-base font-normal;
+    border-color:#aeb7aa; min-height:44px;
+  }
+}
+button, .button {
+  @apply inline-flex w-fit max-w-full items-center justify-center rounded-md border bg-white px-3 py-2 font-semibold;
+  min-height:42px; border-color:#aeb7aa; color:#254331;
+}
+button:hover, .button:hover { background:#e9f0e4; }
+button:disabled { @apply cursor-not-allowed opacity-50; }
+.primary { color:white; background:#305a40; border-color:#305a40; }
+.primary:hover { background:#224630; }
+.danger { color:#8d3126; }
+.link, .text-link, .back { @apply underline underline-offset-4; }
+.link { @apply border-0 bg-transparent pl-0; }
+.container { width:min(76rem, 100% - 2rem); margin-inline:auto; }
+.content { @apply py-9; min-height:62vh; }
+.brand { font:700 2rem Georgia,serif; letter-spacing:-.03em; display:inline-flex; align-items:center; }
+.brand-mark { @apply mr-2 text-xl; }
+.brand > span:last-child { color:#c6d796; }
+.welcome { @apply grid min-h-screen md:grid-cols-2; }
+.welcome-intro {
+  @apply flex flex-col justify-between gap-9;
+  padding:clamp(2rem,7vw,7rem); color:#faf5e2;
+  background: radial-gradient(ellipse at 0% 110%,#5b7b4e,transparent 70%), #21392b;
+}
+.welcome-intro h1 { font-size:clamp(2.65rem,6vw,5.6rem); max-width:12ch; margin:.65rem 0 1rem; }
+.welcome-intro p { max-width:40ch; color:#e0e7cf; }
+.welcome-form { @apply grid items-center; padding:clamp(1.5rem,7vw,7rem); }
+.welcome-form form { @apply mx-auto grid w-full max-w-md gap-4; }
+.welcome-form h2 { @apply text-4xl; }
+.eyebrow { @apply text-xs font-bold tracking-widest; }
+.top { background:#21392b; color:#fffdf2; }
+.top-inner, .account, .nav-inner, .actions, .spread { @apply flex flex-wrap items-center gap-2; }
+.top-inner, .spread { @apply justify-between; }
+.top-inner { @apply gap-4 py-4; }
+.account { @apply gap-3; }
+.account small { @apply block; color:#d4e2c3; }
+.nav { @apply border-b bg-white; border-color:#dce1d4; }
+.nav-inner { @apply gap-x-5 gap-y-0; }
+.nav a { @apply block border-b-4 border-transparent py-3; }
+.nav a[aria-current] { border-color:#537850; color:#254d32; font-weight:700; }
+.page-title { @apply mb-6; }
+.page-title p { @apply mt-2; color:#4d594a; }
+.card { @apply min-w-0 rounded-xl border p-5; border-color:#dce1d4; background:#fffefa; overflow-wrap:anywhere; }
+.cards, .filters, .form { @apply grid gap-4; }
+.cards { grid-template-columns:repeat(auto-fit,minmax(min(100%,19rem),1fr)); }
+.filters { grid-template-columns:repeat(auto-fit,minmax(min(100%,9rem),1fr)); align-items:end; }
+.listing { @apply flex flex-col gap-3; }
+.listing > .button, .listing > .actions { @apply mt-auto; }
+.facts { @apply flex flex-wrap gap-x-6 gap-y-2 border-t pt-2; }
+.muted, dt { @apply text-sm; color:#525e4e; }
+dd { @apply font-bold; }
+.status { @apply inline-block w-fit whitespace-nowrap rounded-full px-3 py-1 text-sm font-semibold capitalize; background:#eeeadd; color:#514129; }
+.status[data-status="ACTIVE"], .status[data-status="DELIVERED"] { background:#e2eddb; color:#285239; }
+.status[data-status="REMOVED"], .status[data-status="REJECTED"] { background:#f8e9e2; color:#812d22; }
+.order { @apply flex flex-wrap items-start justify-between gap-4; }
+.order-side { @apply min-w-0; }
+.demo, .note { @apply rounded-lg p-3 text-sm; background:#eaf0e1; }
+.demo .actions { @apply mt-2; }
+.metrics strong { @apply text-3xl; color:#2c573e; }
+.alert { @apply mb-3 rounded-lg border p-3; background:#f9e9e1; color:#782619; border-color:#dca99b; }
+.foot { @apply flex flex-wrap justify-between gap-2 border-t py-4 text-sm; color:#505d4e; }
+.skip { @apply absolute left-4 z-10 bg-white p-3; top:-8rem; }
+.skip:focus { @apply top-4; }

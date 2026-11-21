@@ -1,0 +1,22 @@
+spring:
+  profiles:
+    default: demo
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/paralisetu}
+    username: ${DB_USER:paralisetu}
+    password: ${DB_PASSWORD:local-demo-password}
+  mvc:
+    problemdetails:
+      enabled: true
+server:
+  servlet:
+    session:
+      timeout: 2h
+      tracking-modes: cookie
+      cookie:
+        http-only: true
+        same-site: lax
+        secure: ${COOKIE_SECURE:false}
+demo:
+  enabled: ${DEMO_SEED:false}
+  password: ${DEMO_PASSWORD:ParaliDemo123!}
