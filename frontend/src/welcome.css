@@ -1,64 +1,472 @@
-.account-menu { position:relative; max-width:55%; }
-.account-menu summary { display:flex; align-items:center; gap:.55rem; cursor:pointer; min-height:44px; list-style:none; }
-.account-menu summary::-webkit-details-marker { display:none; }
-.account-name { overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
-.avatar { background:#dbe9c8; color:#22482d; border-radius:50%; flex:none; display:grid; place-items:center; width:2rem; height:2rem; font-weight:700; }
-.account-pop { position:absolute; z-index:5; right:0; top:calc(100% + .4rem); width:12rem; border:1px solid #d8ddce; background:#fffef7; color:#243d2c; border-radius:.75rem; padding:.5rem; box-shadow:0 8px 24px #1d32152b; }
-.account-pop > * { display:block; width:100%; text-align:left; padding:.55rem .7rem; }
-.account-pop button { border:0; }
-.account-pop a:hover,.account-pop button:hover { background:#edf2e6; }
-:root { --ink:#222b40; --plum:#653848; --ochre:#d99e49; --paper:#f7f0e5; --line:#d9c8ba; color:var(--ink); background:var(--paper); }
-#root { min-height:100svh; display:flex; flex-direction:column; }
-.auth-page { min-height:100svh; display:flex; flex-direction:column; background:var(--paper); }
-.auth-header,.top { color:#fff4db; background:var(--ink); }
-.auth-width,.top-inner,.nav-inner,.content,.foot { width:100%; max-width:none; padding-inline:clamp(1rem,4vw,5rem); }
-.auth-header > div { display:flex; align-items:center; justify-content:space-between; gap:1rem; min-height:4.5rem; }
-.brand-logo { width:2rem; height:2rem; border-radius:50%; margin-right:.5rem; }
-.brand > span:last-child,.auth-header-link { color:#f5c878; }
-.auth-header-link { font-weight:650; }
-.auth-layout,.profile-panel { flex:1; display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,1fr); align-items:stretch; width:100%; padding:0; }
-.farm-hero,.profile-cover { position:relative; isolation:isolate; color:#fff8e8; background:#554238 url('./assets/fields.jpg') center center/cover no-repeat; display:flex; align-items:flex-end; }
-.farm-hero::before,.profile-cover::before { content:''; position:absolute; inset:0; z-index:-1; background:linear-gradient(180deg,#251b2608 20%,#24213399 58%,#211d2df5); }
-.hero-copy,.profile-cover > div { padding:clamp(1.5rem,4.5vw,6rem); }
-.hero-copy h1,.profile-cover h1 { font-size:clamp(2.5rem,5.2vw,6.6rem); line-height:1.02; max-width:15ch; text-wrap:balance; overflow-wrap:anywhere; }
-.hero-copy p,.profile-cover p { margin-top:1rem; font-size:clamp(1rem,1.2vw,1.3rem); max-width:43ch; color:#fff1da; }
-.auth-card,.profile-details { align-self:center; width:min(100%,42rem); margin-inline:auto; padding:clamp(1.5rem,4vw,4rem); }
-.auth-card form { display:grid; gap:1rem; }
-.auth-card h2,.profile-details h2 { font-size:clamp(2rem,3.15vw,3.7rem); line-height:1.05; }
-.auth-tabs { display:flex; border-bottom:1px solid var(--line); margin-bottom:1.55rem; }
-.auth-tabs a { flex:1; padding:.7rem; text-align:center; border-bottom:3px solid transparent; font-weight:650; }
-.auth-tabs a[aria-current] { color:var(--plum); border-color:var(--plum); }
-.auth-card form > .primary { width:100%; }
-.primary { background:var(--plum); color:#fff8f0; border-color:var(--plum); }
-.primary:hover { background:#472737; }
-input,select,textarea,.card { background-color:#fffbf5; border-color:var(--line); }
-.demo,.note { background:#eee0c8; }
-.nav { background:#eee4d7; }
-.nav a[aria-current] { color:var(--plum); border-color:var(--plum); }
-.content { flex:1; padding-block:clamp(1.25rem,3vw,3rem); }
-.profile-content { flex:1; display:flex; flex-direction:column; }
-.profile-cover { background-position:30% center; }
-.profile-avatar,.avatar { display:inline-grid; place-items:center; border-radius:50%; background:#efc681; color:#402736; }
-.profile-avatar { width:4rem; height:4rem; margin-bottom:1rem; font:700 2rem Georgia,serif; }
-.profile-details dl { margin-block:1.5rem; }
-.profile-details dl div { padding:.85rem 0; border-bottom:1px solid var(--line); }
-.profile-details dd { font-size:1.12rem; overflow-wrap:anywhere; }
-.foot { background:#e9decd; }
-@media (max-width:800px) {
- .auth-layout,.profile-panel { grid-template-columns:minmax(0,1fr); grid-template-rows:auto 1fr; }
- .farm-hero,.profile-cover { min-height:clamp(11rem,29vw,16rem); background-position:center 60%; }
- .hero-copy,.profile-cover > div { padding:1.25rem clamp(1rem,4vw,2rem); }
- .hero-copy h1,.profile-cover h1 { font-size:clamp(2rem,5vw,3rem); max-width:24ch; }
- .hero-copy p { margin-top:.45rem; }
- .auth-card,.profile-details { padding:1.5rem clamp(1rem,4vw,2rem); align-self:start; }
- .profile-avatar { width:2.5rem; height:2.5rem; font-size:1.2rem; margin-bottom:.4rem; }
- .top-inner { flex-wrap:nowrap; }
- .account-name { max-width:22vw; }
- .nav-inner { gap:0 1rem; }
- .brand { font-size:1.6rem; }
+/* ==========================================================================
+   ParaliSetu Agricultural Theme & Layout (welcome.css)
+   Colors: Deep Forest Soil (#142e1d), Farm Green (#1e5631), Harvest Gold (#d97706),
+   Warm Ivory Paper (#fbfaf6), and Natural Earth (#e2ded4)
+   ========================================================================== */
+
+:root {
+  --ink: #112616;
+  --plum: #1d5b32;       /* Farm Green */
+  --ochre: #d97706;      /* Parali Harvest Gold */
+  --paper: #eef6fb;      /* Ethereal Light Sky-Blue Canvas */
+  --line: #d4e5f2;       /* Subtle crystalline glass border */
+  color: var(--ink);
+  background: var(--paper);
 }
-@media(max-width:460px) {
- .top-inner { gap:.5rem; }
- .account-menu { min-width:0; }
- .account-menu .account-name { display:none; }
+
+#root {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --------------------------------------------------------------------------
+   Account Menu Popover
+   -------------------------------------------------------------------------- */
+.account-menu {
+  position: relative;
+  max-width: 55%;
+}
+
+.account-menu summary {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  cursor: pointer;
+  min-height: 44px;
+  list-style: none;
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: all 0.2s ease;
+}
+
+.account-menu summary:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(245, 158, 11, 0.5);
+}
+
+.account-menu summary::-webkit-details-marker {
+  display: none;
+}
+
+.account-name {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-weight: 600;
+  color: #fefce8;
+  font-size: 0.95rem;
+}
+
+.avatar {
+  background: #fef3c7;
+  color: #92400e;
+  border: 2px solid #f59e0b;
+  border-radius: 50%;
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.account-pop {
+  position: absolute;
+  z-index: 50;
+  right: 0;
+  top: calc(100% + 0.5rem);
+  width: 14rem;
+  border: 1px solid #dce2d6;
+  background: #ffffff;
+  color: #173822;
+  border-radius: 0.85rem;
+  padding: 0.6rem;
+  box-shadow: 0 12px 30px -5px rgba(20, 46, 26, 0.2);
+}
+
+.account-pop small {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #657563;
+  padding: 0.4rem 0.75rem 0.6rem;
+  border-bottom: 1px solid #edf0ea;
+  margin-bottom: 0.3rem;
+}
+
+.account-pop > a,
+.account-pop > button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: #1c3d25;
+  transition: all 0.15s ease;
+}
+
+.account-pop button {
+  border: 0;
+  background: transparent;
+  color: #b91c1c;
+  cursor: pointer;
+}
+
+.account-pop a:hover {
+  background: #edf5eb;
+  color: #165b2f;
+}
+
+.account-pop button:hover {
+  background: #fef2f2;
+  color: #991b1b;
+}
+
+/* --------------------------------------------------------------------------
+   Auth Layout & Farm Hero
+   -------------------------------------------------------------------------- */
+.auth-page {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+}
+
+.auth-header,
+.top {
+  color: #fffef7;
+  background: linear-gradient(135deg, #102616 0%, #183820 50%, #122b19 100%);
+  border-bottom: 2px solid rgba(245, 158, 11, 0.35);
+}
+
+.auth-width,
+.top-inner,
+.nav-inner,
+.content,
+.foot {
+  width: 100%;
+  max-width: none;
+  padding-inline: clamp(1rem, 4vw, 5rem);
+}
+
+.auth-header > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 4.75rem;
+}
+
+.brand-logo {
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  margin-right: 0.6rem;
+  border: 2px solid #f59e0b;
+}
+
+.brand > span:last-child,
+.auth-header-link {
+  color: #f59e0b;
+}
+
+.auth-header-link {
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  transition: all 0.2s ease;
+}
+
+.auth-header-link:hover {
+  background: rgba(245, 158, 11, 0.25);
+  color: #fef08a;
+}
+
+.auth-layout,
+.profile-panel {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  align-items: stretch;
+  width: 100%;
+  padding: 0;
+}
+
+.farm-hero,
+.profile-cover {
+  position: relative;
+  isolation: isolate;
+  color: #fffdf5;
+  background: #3e4a36 url('./assets/fields.jpg') center center / cover no-repeat;
+  display: flex;
+  align-items: flex-end;
+}
+
+.farm-hero::before,
+.profile-cover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, rgba(16, 38, 22, 0.2) 15%, rgba(16, 38, 22, 0.75) 60%, rgba(12, 28, 16, 0.95));
+}
+
+.hero-copy,
+.profile-cover > div {
+  padding: clamp(1.75rem, 5vw, 6rem);
+}
+
+.hero-copy h1,
+.profile-cover h1 {
+  font-family: Georgia, 'Playfair Display', serif;
+  font-size: clamp(2.4rem, 5vw, 5.5rem);
+  line-height: 1.05;
+  max-width: 16ch;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+  color: #ffffff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+.hero-copy p,
+.profile-cover p {
+  margin-top: 1rem;
+  font-size: clamp(1rem, 1.25vw, 1.3rem);
+  max-width: 44ch;
+  color: #fef9c3;
+  line-height: 1.5;
+}
+
+.auth-card,
+.profile-details {
+  align-self: center;
+  width: min(100%, 42rem);
+  margin-inline: auto;
+  padding: clamp(1.75rem, 4.5vw, 4.5rem);
+}
+
+.auth-card form {
+  display: grid;
+  gap: 1.15rem;
+}
+
+.auth-card h2,
+.profile-details h2 {
+  font-family: Georgia, serif;
+  font-size: clamp(1.85rem, 3vw, 3.2rem);
+  line-height: 1.1;
+  color: #14331e;
+  margin-bottom: 0.5rem;
+}
+
+.auth-tabs {
+  display: flex;
+  border-bottom: 2px solid var(--line);
+  margin-bottom: 1.75rem;
+  gap: 0.5rem;
+}
+
+.auth-tabs a {
+  flex: 1;
+  padding: 0.75rem;
+  text-align: center;
+  border-bottom: 3px solid transparent;
+  font-weight: 700;
+  color: #556854;
+  border-radius: 0.5rem 0.5rem 0 0;
+  transition: all 0.2s ease;
+}
+
+.auth-tabs a:hover {
+  color: #1e5631;
+  background: #f0f6ee;
+}
+
+.auth-tabs a[aria-current] {
+  color: #1e5631;
+  border-color: #1e5631;
+  background: #eef6ec;
+}
+
+.auth-card form > .primary {
+  width: 100%;
+}
+
+.primary {
+  background: linear-gradient(135deg, #225a33 0%, #174223 100%);
+  color: #ffffff;
+  border-color: #1a4a28;
+  box-shadow: 0 2px 8px rgba(27, 72, 38, 0.25);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.primary:hover {
+  background: linear-gradient(135deg, #1b4929 0%, #11341c 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(27, 72, 38, 0.32);
+}
+
+input,
+select,
+textarea,
+.card {
+  background-color: #ffffff;
+  border-color: var(--line);
+}
+
+.demo,
+.note {
+  background: #fef7e6;
+  border: 1px solid #fde68a;
+  border-radius: 0.75rem;
+  color: #78350f;
+}
+
+
+.content {
+  flex: 1;
+  padding-block: clamp(1.5rem, 3.5vw, 3.5rem);
+}
+
+.profile-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-cover {
+  background-position: 30% center;
+}
+
+.profile-avatar,
+.avatar {
+  display: inline-grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.profile-avatar {
+  width: 4.5rem;
+  height: 4.5rem;
+  margin-bottom: 1rem;
+  font: 700 2.2rem Georgia, serif;
+  border: 3px solid #f59e0b;
+}
+
+.profile-details dl {
+  margin-block: 1.5rem;
+  background: #ffffff;
+  border: 1px solid #e5ded2;
+  border-radius: 0.85rem;
+  padding: 0.5rem 1.25rem;
+}
+
+.profile-details dl div {
+  padding: 0.95rem 0;
+  border-bottom: 1px solid #ede8dc;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.profile-details dl div:last-child {
+  border-bottom: none;
+}
+
+.profile-details dt {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #657563;
+}
+
+.profile-details dd {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #14331e;
+  overflow-wrap: anywhere;
+}
+
+.foot {
+  background: #102616;
+  color: #e5eedf;
+  border-top: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.foot span {
+  color: #f59e0b;
+}
+
+@media (max-width: 800px) {
+  .auth-layout,
+  .profile-panel {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+  }
+  .farm-hero,
+  .profile-cover {
+    min-height: clamp(11rem, 29vw, 16rem);
+    background-position: center 60%;
+  }
+  .hero-copy,
+  .profile-cover > div {
+    padding: 1.25rem clamp(1rem, 4vw, 2rem);
+  }
+  .hero-copy h1,
+  .profile-cover h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    max-width: 24ch;
+  }
+  .hero-copy p {
+    margin-top: 0.45rem;
+  }
+  .auth-card,
+  .profile-details {
+    padding: 1.5rem clamp(1rem, 4vw, 2rem);
+    align-self: start;
+  }
+  .profile-avatar {
+    width: 2.75rem;
+    height: 2.75rem;
+    font-size: 1.3rem;
+    margin-bottom: 0.4rem;
+  }
+  .top-inner {
+    flex-wrap: nowrap;
+  }
+  .account-name {
+    max-width: 22vw;
+  }
+  .nav-inner {
+    gap: 0 0.75rem;
+  }
+  .brand {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 460px) {
+  .top-inner {
+    gap: 0.5rem;
+  }
+  .account-menu {
+    min-width: 0;
+  }
+  .account-menu .account-name {
+    display: none;
+  }
 }

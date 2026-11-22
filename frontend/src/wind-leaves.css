@@ -1,0 +1,227 @@
+/* ==========================================================================
+   Blowing Wind & Falling Leaves Ambient Atmosphere
+   Increased wind velocity, visible breeze gusts, dancing chaff spores & leaves
+   ========================================================================== */
+
+.ambient-wind-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* --------------------------------------------------------------------------
+   Lightest Bluish Glassy Ambient Aura in the Background
+   -------------------------------------------------------------------------- */
+.ambient-glass-glow {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse 65% 50% at 20% 0%, rgba(186, 230, 253, 0.45) 0%, transparent 60%),
+    radial-gradient(ellipse 55% 45% at 85% 15%, rgba(254, 240, 138, 0.3) 0%, transparent 55%),
+    radial-gradient(circle at 50% 100%, rgba(187, 247, 208, 0.35) 0%, transparent 60%),
+    radial-gradient(circle at 80% 60%, rgba(224, 242, 254, 0.4) 0%, transparent 45%);
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   Increased Blowing Wind Wave Streams
+   -------------------------------------------------------------------------- */
+.wind-stream-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.wind-line {
+  stroke-dasharray: 320 500;
+  stroke-dashoffset: 820;
+  animation: windFlowStrong 5.5s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+  opacity: 0;
+}
+
+.wind-line-1 {
+  animation-duration: 4.8s;
+  animation-delay: 0s;
+}
+
+.wind-line-2 {
+  animation-duration: 5.6s;
+  animation-delay: 1.2s;
+}
+
+.wind-line-3 {
+  animation-duration: 6.2s;
+  animation-delay: 2.5s;
+}
+
+.wind-line-4 {
+  animation-duration: 4.4s;
+  animation-delay: 0.6s;
+}
+
+.wind-line-5 {
+  animation-duration: 5.8s;
+  animation-delay: 3.2s;
+}
+
+.wind-line-6 {
+  animation-duration: 5.1s;
+  animation-delay: 1.8s;
+}
+
+@keyframes windFlowStrong {
+  0% {
+    stroke-dashoffset: 900;
+    opacity: 0;
+    transform: translateX(-80px);
+  }
+  15% {
+    opacity: 0.65;
+  }
+  60% {
+    opacity: 0.5;
+  }
+  85% {
+    opacity: 0.2;
+  }
+  100% {
+    stroke-dashoffset: -900;
+    opacity: 0;
+    transform: translateX(120px);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Blowing Chaff / Pollen Light Motes
+   -------------------------------------------------------------------------- */
+.chaff-particle {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.95) 0%, rgba(245, 158, 11, 0.6) 60%, transparent 100%);
+  box-shadow: 0 0 6px rgba(255, 235, 150, 0.8);
+  animation: chaffDrift linear infinite;
+  pointer-events: none;
+}
+
+@keyframes chaffDrift {
+  0% {
+    transform: translate3d(-10vw, 0, 0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.85;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate3d(115vw, 60px, 0);
+    opacity: 0;
+  }
+}
+
+.chaff-1 { top: 12%; width: 4px; height: 4px; animation-duration: 7s; animation-delay: 0.2s; }
+.chaff-2 { top: 22%; width: 3px; height: 3px; animation-duration: 5.8s; animation-delay: 1.5s; }
+.chaff-3 { top: 38%; width: 5px; height: 5px; animation-duration: 8.2s; animation-delay: 3s; }
+.chaff-4 { top: 48%; width: 3px; height: 3px; animation-duration: 6.4s; animation-delay: 0.8s; }
+.chaff-5 { top: 62%; width: 4px; height: 4px; animation-duration: 7.5s; animation-delay: 2.2s; }
+.chaff-6 { top: 78%; width: 3px; height: 3px; animation-duration: 6s; animation-delay: 4.1s; }
+.chaff-7 { top: 88%; width: 5px; height: 5px; animation-duration: 8.8s; animation-delay: 1.9s; }
+
+/* --------------------------------------------------------------------------
+   Falling & Swirling Leaves
+   -------------------------------------------------------------------------- */
+.leaf-particle {
+  position: absolute;
+  top: -60px;
+  will-change: transform, opacity;
+  animation-name: leafFall, leafSway, leafTumble;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear, ease-in-out, ease-in-out;
+}
+
+@keyframes leafFall {
+  0% {
+    top: -60px;
+    opacity: 0;
+  }
+  8% {
+    opacity: 0.9;
+  }
+  85% {
+    opacity: 0.8;
+  }
+  100% {
+    top: 108vh;
+    opacity: 0;
+  }
+}
+
+@keyframes leafSway {
+  0% {
+    transform: translateX(0px);
+  }
+  20% {
+    transform: translateX(55px);
+  }
+  45% {
+    transform: translateX(-20px);
+  }
+  70% {
+    transform: translateX(75px);
+  }
+  100% {
+    transform: translateX(25px);
+  }
+}
+
+@keyframes leafTumble {
+  0% {
+    rotate: 0deg;
+    scale: 0.92;
+  }
+  30% {
+    rotate: 120deg;
+    scale: 1.08;
+  }
+  65% {
+    rotate: 240deg;
+    scale: 0.88;
+  }
+  100% {
+    rotate: 360deg;
+    scale: 0.96;
+  }
+}
+
+/* 16 Organic Particle Variations - Gentle & Slowed Fall Velocity */
+.leaf-1  { left: 4%;  width: 22px; height: 22px; animation-duration: 25s, 8.2s, 12s;   animation-delay: 0.2s, 0s, 0s;   color: #16a34a; }
+.leaf-2  { left: 14%; width: 26px; height: 26px; animation-duration: 29s, 9.5s, 14s;   animation-delay: 3.5s, 0.3s, 0s; color: #d97706; }
+.leaf-3  { left: 22%; width: 18px; height: 18px; animation-duration: 23s, 7.5s, 10.5s; animation-delay: 7s, 0.2s, 0.3s; color: #65a30d; }
+.leaf-4  { left: 32%; width: 28px; height: 28px; animation-duration: 32s, 10.5s, 15s;  animation-delay: 2s, 0.5s, 0.2s; color: #f59e0b; }
+.leaf-5  { left: 41%; width: 20px; height: 20px; animation-duration: 26s, 8.5s, 11s;   animation-delay: 9.5s, 0.1s, 0.4s; color: #15803d; }
+.leaf-6  { left: 51%; width: 24px; height: 24px; animation-duration: 28s, 9.2s, 13s;   animation-delay: 5s, 0.3s, 0.1s; color: #b45309; }
+.leaf-7  { left: 60%; width: 19px; height: 19px; animation-duration: 22s, 7.2s, 10s;   animation-delay: 11s, 0s, 0.5s;  color: #22c55e; }
+.leaf-8  { left: 69%; width: 25px; height: 25px; animation-duration: 30s, 10s, 14.5s;  animation-delay: 6s, 0.6s, 0.2s; color: #eab308; }
+.leaf-9  { left: 77%; width: 21px; height: 21px; animation-duration: 27s, 8.8s, 12.5s; animation-delay: 13s, 0.2s, 0.1s; color: #84cc16; }
+.leaf-10 { left: 84%; width: 27px; height: 27px; animation-duration: 34s, 11s, 16s;    animation-delay: 15s, 0.7s, 0.3s; color: #ca8a04; }
+.leaf-11 { left: 91%; width: 23px; height: 23px; animation-duration: 24s, 7.8s, 11.2s; animation-delay: 18s, 0.3s, 0.4s; color: #10b981; }
+.leaf-12 { left: 96%; width: 20px; height: 20px; animation-duration: 28s, 9s, 13.2s;   animation-delay: 9s, 0.1s, 0s;   color: #f59e0b; }
+.leaf-13 { left: 8%;  width: 25px; height: 25px; animation-duration: 27s, 8.9s, 13s;   animation-delay: 12s, 0.4s, 0.2s; color: #22c55e; }
+.leaf-14 { left: 26%; width: 22px; height: 22px; animation-duration: 23s, 7.6s, 11s;   animation-delay: 14s, 0.1s, 0.5s; color: #d97706; }
+.leaf-15 { left: 46%; width: 26px; height: 26px; animation-duration: 31s, 10.2s, 15s;  animation-delay: 17s, 0.5s, 0.3s; color: #16a34a; }
+.leaf-16 { left: 74%; width: 19px; height: 19px; animation-duration: 24s, 8s, 11.5s;   animation-delay: 20s, 0.2s, 0.1s; color: #f59e0b; }
+
+@media (prefers-reduced-motion: reduce) {
+  .wind-line,
+  .leaf-particle,
+  .chaff-particle {
+    animation: none !important;
+    display: none !important;
+  }
+}

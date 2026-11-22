@@ -7,6 +7,7 @@ export function PickupRoom({ orderId, role }) {
   const [room, setRoom] = useState(null);
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
+
   useEffect(() => {
     if (!open) return;
     let active = true;
@@ -24,24 +25,95 @@ export function PickupRoom({ orderId, role }) {
     refresh();
     return () => { active = false; clearTimeout(timer); };
   }, [open, path]);
+
   async function arrive() {
     setBusy(true);
-    try { setRoom(await api(path + '/arrive','POST')); setError(''); }
+    try { setRoom(await api(path + '/arrive', 'POST')); setError(''); }
     catch (e) { setError(message(e)); }
     finally { setBusy(false); }
   }
+
   const ownArrival = role === 'FARMER' ? room?.farmer_arrived_at : room?.carrier_arrived_at;
-  return <section className="form">
-    <button aria-expanded={open} onClick={() => setOpen(!open)}>{open ? 'Close pickup room' : 'Open pickup room'}</button>
-    {open && <div className="card form"><h3>Pickup room #{orderId}</h3>
-      {error && <p role="alert">{error}</p>}
-      {room ? <><p>{room.district} · {room.crop} · {room.quantity_kg} kg</p>
-        <div aria-live="polite"><p>{room.farmer_name}: {room.farmer_arrived_at ? 'At pickup' : 'Awaiting farmer'}</p>
-          <p>{room.carrier_name}: {room.carrier_arrived_at ? 'At pickup' : 'Awaiting transport'}</p>
-          <strong>{room.status !== 'ASSIGNED' ? 'Room closed · ' + statusLabel(room.status)
-            : room.farmer_arrived_at && room.carrier_arrived_at ? 'Both participants are at pickup' : 'Waiting for check-in'}</strong></div>
-        {room.status === 'ASSIGNED' && !ownArrival && <button className="primary" disabled={busy} onClick={arrive}>I am at the pickup site</button>}
-      </> : !error && <p>Connecting…</p>}
-    </div>}
-  </section>;
+
+  return (
+    <section className="pickup-room-section">
+      <button
+        type="button"
+        className="pickup-toggle-btn"
+        aria-expanded={open}
+        onClick={() => setOpen(!open)}
+      >
+        <span className="pickup-pulse" aria-hidden="true"></span>
+        <span>{open ? 'Hide dispatch check-in' : 'Live dispatch room'}</span>
+        <span className="pickup-toggle-arrow">{open ? '▲' : '▼'}</span>
+      </button>
+
+      {open && (
+        <div className="card pickup-box">
+          <div className="pickup-header">
+            <div>
+              <h3>Dispatch Room #{orderId}</h3>
+              <p className="muted">Coordinate pickup location check-in in real time</p>
+            </div>
+            <span className="pickup-live-badge">Live status</span>
+          </div>
+
+          {error && <div role="alert" className="alert">{error}</div>}
+
+          {room ? (
+            <div className="pickup-details">
+              <div className="pickup-summary-strip">
+                <span>📍 {room.district}</span>
+                <span>🌾 {room.crop}</span>
+                <span>⚖️ {new Intl.NumberFormat('en-IN').format(room.quantity_kg)} kg</span>
+              </div>
+
+              <div className="pickup-checkin-grid" aria-live="polite">
+                <div className={`checkin-card ${room.farmer_arrived_at ? 'arrived' : 'pending'}`}>
+                  <div className="checkin-role">🧑‍🌾 Farmer</div>
+                  <div className="checkin-name">{room.farmer_name}</div>
+                  <div className="checkin-status">
+                    <span className="dot"></span>
+                    {room.farmer_arrived_at ? 'Checked in at pickup site' : 'Awaiting arrival'}
+                  </div>
+                </div>
+
+                <div className={`checkin-card ${room.carrier_arrived_at ? 'arrived' : 'pending'}`}>
+                  <div className="checkin-role">🚛 Transport Partner</div>
+                  <div className="checkin-name">{room.carrier_name}</div>
+                  <div className="checkin-status">
+                    <span className="dot"></span>
+                    {room.carrier_arrived_at ? 'Checked in at pickup site' : 'En route / awaiting arrival'}
+                  </div>
+                </div>
+              </div>
+
+              <div className="pickup-verdict">
+                {room.status !== 'ASSIGNED' ? (
+                  <span className="verdict-closed">Dispatch stage: {statusLabel(room.status)}</span>
+                ) : room.farmer_arrived_at && room.carrier_arrived_at ? (
+                  <span className="verdict-ready">✓ Both participants arrived. Ready for cargo loading!</span>
+                ) : (
+                  <span className="verdict-waiting">⏳ Waiting for both parties to confirm site arrival.</span>
+                )}
+              </div>
+
+              {room.status === 'ASSIGNED' && !ownArrival && (
+                <button
+                  type="button"
+                  className="primary w-full arrive-btn"
+                  disabled={busy}
+                  onClick={arrive}
+                >
+                  📍 I have arrived at the pickup site
+                </button>
+              )}
+            </div>
+          ) : !error ? (
+            <p className="muted py-2">Connecting to dispatch server…</p>
+          ) : null}
+        </div>
+      )}
+    </section>
+  );
 }

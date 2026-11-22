@@ -1,8 +1,11 @@
 import Splash from "./Splash";
+import { WindLeavesBackground } from "./WindLeavesBackground";
 import { StrictMode, useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { api, ApiError, message } from './api';
 import { Impact, ListingDetail, ManageListings, Marketplace, OrdersView } from './views';
+import { Wallet } from './Wallet';
+import { Feedback } from './Feedback';
 import { Alert, useAction } from './ui';
 import './styles.css';
 import { Profile } from './Welcome';
@@ -48,10 +51,10 @@ function AccountMenu({ user, busy, onLogout }) {
 const roles = { FARMER: 'Farmer', BUYER: 'Buyer', LOGISTICS: 'Logistics', ADMIN: 'Admin' };
 const defaultPage = { FARMER: 'listings', BUYER: 'market', LOGISTICS: 'orders', ADMIN: 'moderation' };
 const mainNav = {
-  FARMER: [['listings', 'My listings'], ['orders', 'Requests & orders']],
-  BUYER: [['market', 'Marketplace'], ['matches', 'Find matches'], ['orders', 'My orders']],
-  LOGISTICS: [['orders', 'Delivery assignments']],
-  ADMIN: [['moderation', 'Listing moderation'], ['orders', 'All orders']],
+  FARMER: [['listings', '🌾 My listings'], ['orders', '📋 Requests & orders'], ['wallet', '💰 Wallet']],
+  BUYER: [['market', '🏪 Marketplace'], ['orders', '📦 My orders'], ['wallet', '💰 Wallet']],
+  LOGISTICS: [['orders', '🚛 Delivery assignments'], ['wallet', '💰 Wallet']],
+  ADMIN: [['moderation', '🛡️ Listing moderation'], ['orders', '📑 All orders'], ['wallet', '💰 Wallet']],
 };
 function Brand() {
   return <span className="brand"><ReferenceCrop className="brand-logo" region="999 89 164 146" />Parali<span>Setu</span></span>;
@@ -114,15 +117,16 @@ function App() {
   if (user === undefined)
     return <main className="container py-12" role="status">Loading workspace…</main>;
   if (!user)
-    return <><Alert error={startupError} /><SignIn key={route} initialRegister={route === 'register'} onLogin={next => {
+    return <><WindLeavesBackground /><Alert error={startupError} /><SignIn key={route} initialRegister={route === 'register'} onLogin={next => {
       location.hash = defaultPage[next.role];
       setUser(next);
       setStartupError('');
     }} /></>;
-  const nav = [...mainNav[user.role], ['impact', 'Impact']];
+  const nav = [...mainNav[user.role], ['impact', '🌱 Impact'], ['feedback', '💬 Feedback']];
   const details = /^listing\/(\d+)$/.exec(route);
   const page = route === 'profile' || nav.some(([key]) => key === route) ? route : defaultPage[user.role];
   return <>
+    <WindLeavesBackground />
     <a className="skip" href="#main" onClick={event => { event.preventDefault(); document.getElementById('main')?.focus(); }}>Skip to content</a>
     <header className="top"><div className="container top-inner"><Brand />
       <AccountMenu user={user} busy={busy} onLogout={() => void run(async () => {
@@ -132,13 +136,73 @@ function App() {
     <nav className="nav" aria-label="Workspace"><div className="container nav-inner">{nav.map(([key, label]) => <a key={key} href={'#' + key} aria-current={!details && key === page ? 'page' : undefined}>{label}</a>)}</div></nav>
     <main id="main" tabIndex={-1} className={page === 'profile' ? 'profile-content' : 'container content'}><Alert error={error} />
       {details && user.role === 'BUYER' ? <ListingDetail key={route} id={Number(details[1])} />
-        : page === 'market' || page === 'matches' ? <Marketplace key={page} matching={page === 'matches'} />
+        : page === 'market' || page === 'matches' ? <Marketplace key={page} />
           : page === 'orders' ? <OrdersView role={user.role} />
             : page === 'profile' ? <Profile user={user} roleLabel={roles[user.role]} />
               : page === 'impact' ? <Impact />
-                : <ManageListings key={page} admin={page === 'moderation'} />}
+                : page === 'feedback' ? <Feedback role={user.role} />
+                  : page === 'wallet' ? <Wallet role={user.role} />
+                    : <ManageListings key={page} admin={page === 'moderation'} />}
     </main>
-    <footer className="container foot">ParaliSetu <span>Crop residue, put to work.</span></footer>
+    <footer className="site-footer">
+      <div className="footer-inner">
+        <div className="footer-grid">
+          <div className="footer-brand-col">
+            <div className="footer-logo">Parali<span>Setu</span></div>
+            <p>Connecting farmers, buyers, and logistics partners to transform crop residue into sustainable value — ending stubble burning, one harvest at a time.</p>
+            <div className="footer-social-row">
+              <span className="footer-social-btn" title="Twitter">𝕏</span>
+              <span className="footer-social-btn" title="LinkedIn">in</span>
+              <span className="footer-social-btn" title="Instagram">📷</span>
+              <span className="footer-social-btn" title="YouTube">▶</span>
+            </div>
+          </div>
+          <div className="footer-col">
+            <h4>Platform</h4>
+            <ul>
+              <li><a href="#market">Marketplace</a></li>
+              <li><a href="#impact">Impact Dashboard</a></li>
+              <li><a href="#feedback">Feedback</a></li>
+              <li><a href="#wallet">Wallet</a></li>
+            </ul>
+          </div>
+          <div className="footer-col">
+            <h4>Help & Support</h4>
+            <ul>
+              <li><span>FAQs</span></li>
+              <li><span>How It Works</span></li>
+              <li><span>Seller Guide</span></li>
+              <li><span>Buyer Guide</span></li>
+              <li><span>Report an Issue</span></li>
+            </ul>
+          </div>
+          <div className="footer-col">
+            <h4>Contact Us</h4>
+            <ul>
+              <li><div className="footer-contact-item"><span className="footer-contact-icon">📧</span> support@paralisetu.org</div></li>
+              <li><div className="footer-contact-item"><span className="footer-contact-icon">📞</span> +91 1800-XXX-XXXX</div></li>
+              <li><div className="footer-contact-item"><span className="footer-contact-icon">📍</span> Chandigarh, India</div></li>
+            </ul>
+          </div>
+        </div>
+        <hr className="footer-divider" />
+        <div className="footer-bottom">
+          <div className="footer-bottom-left">
+            © 2024–2026 ParaliSetu. All rights reserved.
+            <div className="footer-badge-row">
+              <span className="footer-badge">🌿 Carbon Neutral Platform</span>
+              <span className="footer-badge">🛡️ Data Protected</span>
+              <span className="footer-badge">🇮🇳 Made in India</span>
+            </div>
+          </div>
+          <div className="footer-bottom-right">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Cookie Policy</a>
+          </div>
+        </div>
+      </div>
+    </footer>
   </>;
 }
 createRoot(document.getElementById('root')).render(<StrictMode> <Splash>
