@@ -1,0 +1,11 @@
+class: PickupRoomView
+fields:
+  orderId: int
+  crop: String
+  district: String
+  quantityKg: int
+  farmerName: String
+  carrierName: String
+  status: String
+  farmerArrivedAt: DateTime?
+  carrierArrivedAt: DateTime?

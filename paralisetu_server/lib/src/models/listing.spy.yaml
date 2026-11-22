@@ -1,0 +1,18 @@
+class: ParaliListing
+table: paralisetu_listing
+fields:
+  farmerId: int
+  crop: String
+  district: String
+  description: String
+  availableKg: int
+  pricePerKg: double
+  harvestDate: DateTime
+  availableFrom: DateTime
+  availableUntil: DateTime
+  status: String # ACTIVE, PAUSED, REMOVED, DELETED
+  version: int
+  farmerName: String?
+indexes:
+  paralisetu_listing_market_idx:
+    fields: status, crop, district

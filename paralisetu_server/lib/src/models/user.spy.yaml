@@ -1,0 +1,12 @@
+class: ParaliUser
+table: paralisetu_user
+fields:
+  email: String
+  name: String
+  role: String # FARMER, BUYER, LOGISTICS, ADMIN
+  passwordHash: String
+  createdAt: DateTime?
+indexes:
+  paralisetu_user_email_idx:
+    fields: email
+    unique: true

@@ -1,0 +1,26 @@
+apiServer:
+  port: 8080
+  publicHost: api.paralisetu.org
+  publicPort: 8080
+  publicScheme: https
+
+insightsServer:
+  port: 8081
+  publicHost: insights.paralisetu.org
+  publicPort: 8081
+  publicScheme: https
+
+webServer:
+  port: 8082
+  publicHost: app.paralisetu.org
+  publicPort: 8082
+  publicScheme: https
+
+database:
+  host: localhost
+  port: 5432
+  name: paralisetu_prod
+  user: postgres
+
+redis:
+  enabled: false

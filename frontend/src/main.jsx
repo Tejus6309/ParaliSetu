@@ -1,3 +1,4 @@
+import { SignIn } from './SignIn';
 import Splash from "./Splash";
 import { WindLeavesBackground } from "./WindLeavesBackground";
 import { StrictMode, useEffect, useRef, useState } from 'react';
@@ -56,49 +57,11 @@ const mainNav = {
   LOGISTICS: [['orders', '🚛 Delivery assignments'], ['wallet', '💰 Wallet']],
   ADMIN: [['moderation', '🛡️ Listing moderation'], ['orders', '📑 All orders'], ['wallet', '💰 Wallet']],
 };
+
 function Brand() {
   return <span className="brand"><ReferenceCrop className="brand-logo" region="999 89 164 146" />Parali<span>Setu</span></span>;
 }
-function SignIn({ onLogin, initialRegister }) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const register = initialRegister;
-  const [error, busy, run] = useAction();
-  return <div className="auth-page">
-    <header className="auth-header"><div className="auth-width"><a href="#welcome" aria-label="ParaliSetu home"><Brand /></a>
-      <a className="auth-header-link" href={register ? '#login' : '#register'}>{register ? 'Sign in' : 'Join ParaliSetu'}</a>
-    </div></header>
-    <main className="auth-layout auth-width">
-      <section className="farm-hero">
-        <div className="hero-copy"><h1>Turn crop residue into opportunity.</h1>
-          <p>Connect with farmers, buyers and transport partners to give each harvest a second life.</p></div>
-      </section>
-      <section className="auth-card">
-        <nav aria-label="Account access" className="auth-tabs">
-          <a href="#login" aria-current={!register ? 'page' : undefined}>Sign in</a>
-          <a href="#register" aria-current={register ? 'page' : undefined}>Sign up</a>
-        </nav>
-        <form onSubmit={event => {
-          event.preventDefault();
-          const data = new FormData(event.currentTarget);
-          void run(async () => onLogin(await api(register ? '/auth/register' : '/auth/login', 'POST', register ? { email, password, name: data.get('name'), role: data.get('role') } : { email, password })));
-        }}>
 
-          <h2>{register ? 'Create your account' : 'Welcome back'}</h2>
-          <Alert error={error} />
-          {register && <><label>Name<input name="name" required maxLength={100} autoComplete="name" /></label>
-            <label>Role<select name="role"><option value="FARMER">Farmer</option><option value="BUYER">Buyer</option></select></label></>}
-          <label>Email<input required type="email" value={email} onChange={e => setEmail(e.target.value)} autoComplete="email" maxLength={160} /></label>
-          <label>Password<input required type="password" value={password} onChange={e => setPassword(e.target.value)} autoComplete={register ? 'new-password' : 'current-password'} minLength={register ? 10 : undefined} maxLength={72} /></label>
-          <button className="primary" disabled={busy}>{register ? 'Create account' : 'Sign in'}</button>
-          {!register && import.meta.env.VITE_DEMO_HINTS === 'true' && <div className="demo">
-            <strong>Try a demo account</strong><p>Choose a role to fill the sign-in form.</p>
-            <div className="actions">{Object.entries(roles).map(([role, label]) => <button type="button" key={role} onClick={() => { setEmail(role.toLowerCase() + '@demo.paralisetu.org'); setPassword('ParaliDemo123!'); }}>{label}</button>)}</div>
-          </div>}
-        </form>
-      </section>
-    </main></div>;
-}
 function App() {
   const [user, setUser] = useState();
   const [startupError, setStartupError] = useState('');
@@ -117,7 +80,7 @@ function App() {
   if (user === undefined)
     return <main className="container py-12" role="status">Loading workspace…</main>;
   if (!user)
-    return <><WindLeavesBackground /><Alert error={startupError} /><SignIn key={route} initialRegister={route === 'register'} onLogin={next => {
+    return <><WindLeavesBackground /><Alert error={startupError} /><SignIn register={route !== 'login'} onLogin={next => {
       location.hash = defaultPage[next.role];
       setUser(next);
       setStartupError('');
@@ -205,6 +168,11 @@ function App() {
     </footer>
   </>;
 }
-createRoot(document.getElementById('root')).render(<StrictMode> <Splash>
-  <App />
-</Splash></StrictMode>);
+
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <Splash>
+      <App />
+    </Splash>
+  </StrictMode>
+);
