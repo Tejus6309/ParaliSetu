@@ -11,7 +11,8 @@ class DemoData {
   static Future<void> seedIfEmpty(Session session) async {
     try {
       // Check if users already seeded
-      var existing = await session.db.find<ParaliUser>(
+      var existing = await ParaliUser.db.find(
+        session,
         where: (t) => t.email.equals('farmer@demo.paralisetu.org'),
         limit: 1,
       );
@@ -51,10 +52,10 @@ class DemoData {
         createdAt: DateTime.now(),
       );
 
-      final insertedFarmer = await session.db.insertRow<ParaliUser>(farmer);
-      final insertedBuyer = await session.db.insertRow<ParaliUser>(buyer);
-      final insertedLogistics = await session.db.insertRow<ParaliUser>(logistics);
-      await session.db.insertRow<ParaliUser>(admin);
+      final insertedFarmer = await ParaliUser.db.insertRow(session, farmer);
+      final insertedBuyer = await ParaliUser.db.insertRow(session, buyer);
+      final insertedLogistics = await ParaliUser.db.insertRow(session, logistics);
+      await ParaliUser.db.insertRow(session, admin);
 
       final farmerId = insertedFarmer.id ?? 1;
       final buyerId = insertedBuyer.id ?? 2;
@@ -122,12 +123,13 @@ class DemoData {
 
       ParaliListing? firstListing;
       for (final l in listings) {
-        final inserted = await session.db.insertRow<ParaliListing>(l);
+        final inserted = await ParaliListing.db.insertRow(session, l);
         firstListing ??= inserted;
       }
 
       if (firstListing != null) {
-        await session.db.insertRow<ParaliOrder>(
+        await ParaliOrder.db.insertRow(
+          session,
           ParaliOrder(
             listingId: firstListing.id ?? 1,
             farmerId: farmerId,

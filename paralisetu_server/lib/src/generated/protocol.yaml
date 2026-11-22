@@ -1,0 +1,25 @@
+auth:
+  - login:
+  - register:
+  - me:
+insights:
+  - matches:
+  - impact:
+listings:
+  - browse:
+  - detail:
+  - farmerListings:
+  - create:
+  - edit:
+  - status:
+  - delete:
+  - adminListings:
+  - moderate:
+orders:
+  - getOrders:
+  - getCarriers:
+  - requestOrder:
+  - changeOrder:
+pickupRoom:
+  - getPickupRoom:
+  - arrive:

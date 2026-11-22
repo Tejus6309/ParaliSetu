@@ -10,7 +10,8 @@ class AuthEndpoint extends Endpoint {
 
   Future<ParaliUser?> login(Session session, String email, String password) async {
     final normalizedEmail = email.trim().toLowerCase();
-    final users = await session.db.find<ParaliUser>(
+    final users = await ParaliUser.db.find(
+      session,
       where: (t) => t.email.equals(normalizedEmail),
       limit: 1,
     );
@@ -66,7 +67,8 @@ class AuthEndpoint extends Endpoint {
       );
     }
 
-    final existing = await session.db.find<ParaliUser>(
+    final existing = await ParaliUser.db.find(
+      session,
       where: (t) => t.email.equals(normalizedEmail),
       limit: 1,
     );
@@ -86,12 +88,12 @@ class AuthEndpoint extends Endpoint {
       createdAt: DateTime.now(),
     );
 
-    final inserted = await session.db.insertRow<ParaliUser>(user);
+    final inserted = await ParaliUser.db.insertRow(session, user);
     return inserted.copyWith(passwordHash: '');
   }
 
   Future<ParaliUser?> me(Session session, int userId) async {
-    final user = await session.db.findById<ParaliUser>(userId);
+    final user = await ParaliUser.db.findById(session, userId);
     return user?.copyWith(passwordHash: '');
   }
 }

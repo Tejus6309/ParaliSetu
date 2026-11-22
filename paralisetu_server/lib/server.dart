@@ -30,17 +30,18 @@ void run(List<String> args) async {
 
 class RouteRoot extends WidgetRoute {
   @override
-  Future<AbstractWidget> build(Session session, Map<String, dynamic> params) async {
+  Future<WebWidget?> build(Session session, Request request) async {
     return SimpleWidget(
       text: 'ParaliSetu Serverpod Backend is running! Connect using paralisetu_client.',
     );
   }
 }
 
-class SimpleWidget extends AbstractWidget {
+class SimpleWidget extends WebWidget {
   final String text;
   SimpleWidget({required this.text});
 
   @override
-  String toString() => '<html><body><h1>$text</h1></body></html>';
+  String render({String? Function(String)? onMissingVariable}) =>
+      '<html><body><h1>$text</h1></body></html>';
 }

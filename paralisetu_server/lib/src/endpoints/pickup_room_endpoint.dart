@@ -9,7 +9,7 @@ class PickupRoomEndpoint extends Endpoint {
     String userRole,
     int orderId,
   ) async {
-    final order = await session.db.findById<ParaliOrder>(orderId);
+    final order = await ParaliOrder.db.findById(session, orderId);
     if (order == null) {
       throw EndpointException(message: 'Pickup room not found.', errorType: EndpointExceptionType.notFound);
     }
@@ -40,7 +40,7 @@ class PickupRoomEndpoint extends Endpoint {
     String userRole,
     int orderId,
   ) async {
-    final order = await session.db.findById<ParaliOrder>(orderId);
+    final order = await ParaliOrder.db.findById(session, orderId);
     if (order == null) {
       throw EndpointException(message: 'Pickup room not found.', errorType: EndpointExceptionType.notFound);
     }
@@ -72,7 +72,7 @@ class PickupRoomEndpoint extends Endpoint {
       );
     }
 
-    final saved = await session.db.updateRow<ParaliOrder>(updatedOrder);
+    final saved = await ParaliOrder.db.updateRow(session, updatedOrder);
 
     return PickupRoomView(
       orderId: saved.id ?? orderId,

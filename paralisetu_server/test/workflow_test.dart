@@ -49,6 +49,8 @@ void main() {
         harvestDate: now,
         availableFrom: now,
         availableUntil: now.add(const Duration(days: 30)),
+        status: 'ACTIVE',
+        version: 0,
       );
 
       final localMatch = InsightsEndpoint.rankListing(listing, ' ludhiana ', 2.40);

@@ -1,71 +1,122 @@
-import 'package:serverpod/serverpod.dart' as _i1;
-import '../endpoints/auth_endpoint.dart' as _i2;
-import '../endpoints/listings_endpoint.dart' as _i3;
-import '../endpoints/orders_endpoint.dart' as _i4;
-import '../endpoints/pickup_room_endpoint.dart' as _i5;
-import '../endpoints/insights_endpoint.dart' as _i6;
+/* AUTOMATICALLY GENERATED CODE DO NOT MODIFY */
+/*   To generate run: "serverpod generate"    */
 
-class Endpoints extends _i1.EndpointDispatch {
+// ignore_for_file: implementation_imports
+// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: public_member_api_docs
+// ignore_for_file: type_literal_in_constant_pattern
+// ignore_for_file: use_super_parameters
+// ignore_for_file: invalid_use_of_internal_member
+
+// ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:serverpod/serverpod.dart' as _is;
+import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i1n3uhu0;
+import '../endpoints/auth_endpoint.dart' as _iyggisn2;
+import '../endpoints/insights_endpoint.dart' as _iuy2wz0g;
+import '../endpoints/listings_endpoint.dart' as _is42bjh6;
+import '../endpoints/orders_endpoint.dart' as _ircrt8gp;
+import '../endpoints/pickup_room_endpoint.dart' as _ie01veol;
+
+class Endpoints extends _is.EndpointDispatch {
   @override
-  void initializeEndpoints(_i1.Server server) {
-    var endpoints = <String, _i1.Endpoint>{
-      'auth': _i2.AuthEndpoint()
+  void initializeEndpoints(_is.Server server) {
+    initializeOwnEndpoints(server);
+    modules['serverpod_auth'] = _i1n3uhu0.Endpoints()
+      ..initializeOwnEndpoints(server);
+  }
+
+  @override
+  void initializeOwnEndpoints(_is.Server server) {
+    var endpoints = <String, _is.Endpoint>{
+      'auth': _iyggisn2.AuthEndpoint()
         ..initialize(
           server,
           'auth',
           null,
         ),
-      'listings': _i3.ListingsEndpoint()
-        ..initialize(
-          server,
-          'listings',
-          null,
-        ),
-      'orders': _i4.OrdersEndpoint()
-        ..initialize(
-          server,
-          'orders',
-          null,
-        ),
-      'pickupRoom': _i5.PickupRoomEndpoint()
-        ..initialize(
-          server,
-          'pickupRoom',
-          null,
-        ),
-      'insights': _i6.InsightsEndpoint()
+      'insights': _iuy2wz0g.InsightsEndpoint()
         ..initialize(
           server,
           'insights',
           null,
         ),
+      'listings': _is42bjh6.ListingsEndpoint()
+        ..initialize(
+          server,
+          'listings',
+          null,
+        ),
+      'orders': _ircrt8gp.OrdersEndpoint()
+        ..initialize(
+          server,
+          'orders',
+          null,
+        ),
+      'pickupRoom': _ie01veol.PickupRoomEndpoint()
+        ..initialize(
+          server,
+          'pickupRoom',
+          null,
+        ),
     };
-
-    connectors['auth'] = _i1.EndpointConnector(
+    connectors['auth'] = _is.EndpointConnector(
       name: 'auth',
       endpoint: endpoints['auth']!,
       methodConnectors: {
-        'login': _i1.MethodConnector(
+        'login': _is.MethodConnector(
           name: 'login',
           params: {
-            'email': _i1.ParameterDescription(name: 'email', type: _i1.getType<String>(), nullable: false),
-            'password': _i1.ParameterDescription(name: 'password', type: _i1.getType<String>(), nullable: false),
+            'email': _is.ParameterDescription(
+              name: 'email',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+            'password': _is.ParameterDescription(
+              name: 'password',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
           },
-          call: (session, params) => (endpoints['auth'] as _i2.AuthEndpoint).login(
+          call: (
+            _is.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['auth'] as _iyggisn2.AuthEndpoint).login(
             session,
             params['email'],
             params['password'],
           ),
         ),
-        'register': _i1.MethodConnector(
+        'register': _is.MethodConnector(
           name: 'register',
           params: {
-            'name': _i1.ParameterDescription(name: 'name', type: _i1.getType<String>(), nullable: false),
-            'email': _i1.ParameterDescription(name: 'email', type: _i1.getType<String>(), nullable: false),
-            'password': _i1.ParameterDescription(name: 'password', type: _i1.getType<String>(), nullable: false),
-            'role': _i1.ParameterDescription(name: 'role', type: _i1.getType<String>(), nullable: false),
+            'name': _is.ParameterDescription(
+              name: 'name',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+            'email': _is.ParameterDescription(
+              name: 'email',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+            'password': _is.ParameterDescription(
+              name: 'password',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+            'role': _is.ParameterDescription(
+              name: 'role',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
           },
-          call: (session, params) => (endpoints['auth'] as _i2.AuthEndpoint).register(
+          call: (
+            _is.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['auth'] as _iyggisn2.AuthEndpoint).register(
             session,
             params['name'],
             params['email'],
@@ -73,34 +124,121 @@ class Endpoints extends _i1.EndpointDispatch {
             params['role'],
           ),
         ),
-        'me': _i1.MethodConnector(
+        'me': _is.MethodConnector(
           name: 'me',
           params: {
-            'userId': _i1.ParameterDescription(name: 'userId', type: _i1.getType<int>(), nullable: false),
+            'userId': _is.ParameterDescription(
+              name: 'userId',
+              type: _is.getType<int>(),
+              nullable: false,
+            )
           },
-          call: (session, params) => (endpoints['auth'] as _i2.AuthEndpoint).me(
+          call: (
+            _is.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['auth'] as _iyggisn2.AuthEndpoint).me(
             session,
             params['userId'],
           ),
         ),
       },
     );
-
-    connectors['listings'] = _i1.EndpointConnector(
+    connectors['insights'] = _is.EndpointConnector(
+      name: 'insights',
+      endpoint: endpoints['insights']!,
+      methodConnectors: {
+        'matches': _is.MethodConnector(
+          name: 'matches',
+          params: {
+            'crop': _is.ParameterDescription(
+              name: 'crop',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+            'district': _is.ParameterDescription(
+              name: 'district',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+            'quantityKg': _is.ParameterDescription(
+              name: 'quantityKg',
+              type: _is.getType<int>(),
+              nullable: false,
+            ),
+            'maxPrice': _is.ParameterDescription(
+              name: 'maxPrice',
+              type: _is.getType<double?>(),
+              nullable: true,
+            ),
+          },
+          call: (
+            _is.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['insights'] as _iuy2wz0g.InsightsEndpoint).matches(
+            session,
+            crop: params['crop'],
+            district: params['district'],
+            quantityKg: params['quantityKg'],
+            maxPrice: params['maxPrice'],
+          ),
+        ),
+        'impact': _is.MethodConnector(
+          name: 'impact',
+          params: {},
+          call: (
+            _is.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['insights'] as _iuy2wz0g.InsightsEndpoint)
+                  .impact(session),
+        ),
+      },
+    );
+    connectors['listings'] = _is.EndpointConnector(
       name: 'listings',
       endpoint: endpoints['listings']!,
       methodConnectors: {
-        'browse': _i1.MethodConnector(
+        'browse': _is.MethodConnector(
           name: 'browse',
           params: {
-            'q': _i1.ParameterDescription(name: 'q', type: _i1.getType<String?>(), nullable: true),
-            'crop': _i1.ParameterDescription(name: 'crop', type: _i1.getType<String?>(), nullable: true),
-            'district': _i1.ParameterDescription(name: 'district', type: _i1.getType<String?>(), nullable: true),
-            'minKg': _i1.ParameterDescription(name: 'minKg', type: _i1.getType<int>(), nullable: false),
-            'offset': _i1.ParameterDescription(name: 'offset', type: _i1.getType<int>(), nullable: false),
-            'harvestAfter': _i1.ParameterDescription(name: 'harvestAfter', type: _i1.getType<DateTime?>(), nullable: true),
+            'q': _is.ParameterDescription(
+              name: 'q',
+              type: _is.getType<String?>(),
+              nullable: true,
+            ),
+            'crop': _is.ParameterDescription(
+              name: 'crop',
+              type: _is.getType<String?>(),
+              nullable: true,
+            ),
+            'district': _is.ParameterDescription(
+              name: 'district',
+              type: _is.getType<String?>(),
+              nullable: true,
+            ),
+            'minKg': _is.ParameterDescription(
+              name: 'minKg',
+              type: _is.getType<int>(),
+              nullable: false,
+            ),
+            'offset': _is.ParameterDescription(
+              name: 'offset',
+              type: _is.getType<int>(),
+              nullable: false,
+            ),
+            'harvestAfter': _is.ParameterDescription(
+              name: 'harvestAfter',
+              type: _is.getType<DateTime?>(),
+              nullable: true,
+            ),
           },
-          call: (session, params) => (endpoints['listings'] as _i3.ListingsEndpoint).browse(
+          call: (
+            _is.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['listings'] as _is42bjh6.ListingsEndpoint).browse(
             session,
             q: params['q'],
             crop: params['crop'],
@@ -110,45 +248,114 @@ class Endpoints extends _i1.EndpointDispatch {
             harvestAfter: params['harvestAfter'],
           ),
         ),
-        'detail': _i1.MethodConnector(
+        'detail': _is.MethodConnector(
           name: 'detail',
           params: {
-            'id': _i1.ParameterDescription(name: 'id', type: _i1.getType<int>(), nullable: false),
-            'viewerUserId': _i1.ParameterDescription(name: 'viewerUserId', type: _i1.getType<int?>(), nullable: true),
-            'viewerRole': _i1.ParameterDescription(name: 'viewerRole', type: _i1.getType<String?>(), nullable: true),
+            'id': _is.ParameterDescription(
+              name: 'id',
+              type: _is.getType<int>(),
+              nullable: false,
+            ),
+            'viewerUserId': _is.ParameterDescription(
+              name: 'viewerUserId',
+              type: _is.getType<int?>(),
+              nullable: true,
+            ),
+            'viewerRole': _is.ParameterDescription(
+              name: 'viewerRole',
+              type: _is.getType<String?>(),
+              nullable: true,
+            ),
           },
-          call: (session, params) => (endpoints['listings'] as _i3.ListingsEndpoint).detail(
+          call: (
+            _is.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['listings'] as _is42bjh6.ListingsEndpoint).detail(
             session,
             params['id'],
             viewerUserId: params['viewerUserId'],
             viewerRole: params['viewerRole'],
           ),
         ),
-        'farmerListings': _i1.MethodConnector(
+        'farmerListings': _is.MethodConnector(
           name: 'farmerListings',
           params: {
-            'farmerId': _i1.ParameterDescription(name: 'farmerId', type: _i1.getType<int>(), nullable: false),
+            'farmerId': _is.ParameterDescription(
+              name: 'farmerId',
+              type: _is.getType<int>(),
+              nullable: false,
+            )
           },
-          call: (session, params) => (endpoints['listings'] as _i3.ListingsEndpoint).farmerListings(
+          call: (
+            _is.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['listings'] as _is42bjh6.ListingsEndpoint)
+                  .farmerListings(
             session,
             params['farmerId'],
           ),
         ),
-        'create': _i1.MethodConnector(
+        'create': _is.MethodConnector(
           name: 'create',
           params: {
-            'farmerId': _i1.ParameterDescription(name: 'farmerId', type: _i1.getType<int>(), nullable: false),
-            'farmerName': _i1.ParameterDescription(name: 'farmerName', type: _i1.getType<String>(), nullable: false),
-            'crop': _i1.ParameterDescription(name: 'crop', type: _i1.getType<String>(), nullable: false),
-            'district': _i1.ParameterDescription(name: 'district', type: _i1.getType<String>(), nullable: false),
-            'description': _i1.ParameterDescription(name: 'description', type: _i1.getType<String>(), nullable: false),
-            'availableKg': _i1.ParameterDescription(name: 'availableKg', type: _i1.getType<int>(), nullable: false),
-            'pricePerKg': _i1.ParameterDescription(name: 'pricePerKg', type: _i1.getType<double>(), nullable: false),
-            'harvestDate': _i1.ParameterDescription(name: 'harvestDate', type: _i1.getType<DateTime>(), nullable: false),
-            'availableFrom': _i1.ParameterDescription(name: 'availableFrom', type: _i1.getType<DateTime>(), nullable: false),
-            'availableUntil': _i1.ParameterDescription(name: 'availableUntil', type: _i1.getType<DateTime>(), nullable: false),
+            'farmerId': _is.ParameterDescription(
+              name: 'farmerId',
+              type: _is.getType<int>(),
+              nullable: false,
+            ),
+            'farmerName': _is.ParameterDescription(
+              name: 'farmerName',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+            'crop': _is.ParameterDescription(
+              name: 'crop',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+            'district': _is.ParameterDescription(
+              name: 'district',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+            'description': _is.ParameterDescription(
+              name: 'description',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+            'availableKg': _is.ParameterDescription(
+              name: 'availableKg',
+              type: _is.getType<int>(),
+              nullable: false,
+            ),
+            'pricePerKg': _is.ParameterDescription(
+              name: 'pricePerKg',
+              type: _is.getType<double>(),
+              nullable: false,
+            ),
+            'harvestDate': _is.ParameterDescription(
+              name: 'harvestDate',
+              type: _is.getType<DateTime>(),
+              nullable: false,
+            ),
+            'availableFrom': _is.ParameterDescription(
+              name: 'availableFrom',
+              type: _is.getType<DateTime>(),
+              nullable: false,
+            ),
+            'availableUntil': _is.ParameterDescription(
+              name: 'availableUntil',
+              type: _is.getType<DateTime>(),
+              nullable: false,
+            ),
           },
-          call: (session, params) => (endpoints['listings'] as _i3.ListingsEndpoint).create(
+          call: (
+            _is.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['listings'] as _is42bjh6.ListingsEndpoint).create(
             session,
             farmerId: params['farmerId'],
             farmerName: params['farmerName'],
@@ -162,22 +369,70 @@ class Endpoints extends _i1.EndpointDispatch {
             availableUntil: params['availableUntil'],
           ),
         ),
-        'edit': _i1.MethodConnector(
+        'edit': _is.MethodConnector(
           name: 'edit',
           params: {
-            'farmerId': _i1.ParameterDescription(name: 'farmerId', type: _i1.getType<int>(), nullable: false),
-            'id': _i1.ParameterDescription(name: 'id', type: _i1.getType<int>(), nullable: false),
-            'version': _i1.ParameterDescription(name: 'version', type: _i1.getType<int>(), nullable: false),
-            'crop': _i1.ParameterDescription(name: 'crop', type: _i1.getType<String>(), nullable: false),
-            'district': _i1.ParameterDescription(name: 'district', type: _i1.getType<String>(), nullable: false),
-            'description': _i1.ParameterDescription(name: 'description', type: _i1.getType<String>(), nullable: false),
-            'availableKg': _i1.ParameterDescription(name: 'availableKg', type: _i1.getType<int>(), nullable: false),
-            'pricePerKg': _i1.ParameterDescription(name: 'pricePerKg', type: _i1.getType<double>(), nullable: false),
-            'harvestDate': _i1.ParameterDescription(name: 'harvestDate', type: _i1.getType<DateTime>(), nullable: false),
-            'availableFrom': _i1.ParameterDescription(name: 'availableFrom', type: _i1.getType<DateTime>(), nullable: false),
-            'availableUntil': _i1.ParameterDescription(name: 'availableUntil', type: _i1.getType<DateTime>(), nullable: false),
+            'farmerId': _is.ParameterDescription(
+              name: 'farmerId',
+              type: _is.getType<int>(),
+              nullable: false,
+            ),
+            'id': _is.ParameterDescription(
+              name: 'id',
+              type: _is.getType<int>(),
+              nullable: false,
+            ),
+            'version': _is.ParameterDescription(
+              name: 'version',
+              type: _is.getType<int>(),
+              nullable: false,
+            ),
+            'crop': _is.ParameterDescription(
+              name: 'crop',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+            'district': _is.ParameterDescription(
+              name: 'district',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+            'description': _is.ParameterDescription(
+              name: 'description',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+            'availableKg': _is.ParameterDescription(
+              name: 'availableKg',
+              type: _is.getType<int>(),
+              nullable: false,
+            ),
+            'pricePerKg': _is.ParameterDescription(
+              name: 'pricePerKg',
+              type: _is.getType<double>(),
+              nullable: false,
+            ),
+            'harvestDate': _is.ParameterDescription(
+              name: 'harvestDate',
+              type: _is.getType<DateTime>(),
+              nullable: false,
+            ),
+            'availableFrom': _is.ParameterDescription(
+              name: 'availableFrom',
+              type: _is.getType<DateTime>(),
+              nullable: false,
+            ),
+            'availableUntil': _is.ParameterDescription(
+              name: 'availableUntil',
+              type: _is.getType<DateTime>(),
+              nullable: false,
+            ),
           },
-          call: (session, params) => (endpoints['listings'] as _i3.ListingsEndpoint).edit(
+          call: (
+            _is.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['listings'] as _is42bjh6.ListingsEndpoint).edit(
             session,
             farmerId: params['farmerId'],
             id: params['id'],
@@ -192,44 +447,89 @@ class Endpoints extends _i1.EndpointDispatch {
             availableUntil: params['availableUntil'],
           ),
         ),
-        'status': _i1.MethodConnector(
+        'status': _is.MethodConnector(
           name: 'status',
           params: {
-            'farmerId': _i1.ParameterDescription(name: 'farmerId', type: _i1.getType<int>(), nullable: false),
-            'id': _i1.ParameterDescription(name: 'id', type: _i1.getType<int>(), nullable: false),
-            'newStatus': _i1.ParameterDescription(name: 'newStatus', type: _i1.getType<String>(), nullable: false),
+            'farmerId': _is.ParameterDescription(
+              name: 'farmerId',
+              type: _is.getType<int>(),
+              nullable: false,
+            ),
+            'id': _is.ParameterDescription(
+              name: 'id',
+              type: _is.getType<int>(),
+              nullable: false,
+            ),
+            'newStatus': _is.ParameterDescription(
+              name: 'newStatus',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
           },
-          call: (session, params) => (endpoints['listings'] as _i3.ListingsEndpoint).status(
+          call: (
+            _is.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['listings'] as _is42bjh6.ListingsEndpoint).status(
             session,
             params['farmerId'],
             params['id'],
             params['newStatus'],
           ),
         ),
-        'delete': _i1.MethodConnector(
+        'delete': _is.MethodConnector(
           name: 'delete',
           params: {
-            'farmerId': _i1.ParameterDescription(name: 'farmerId', type: _i1.getType<int>(), nullable: false),
-            'id': _i1.ParameterDescription(name: 'id', type: _i1.getType<int>(), nullable: false),
+            'farmerId': _is.ParameterDescription(
+              name: 'farmerId',
+              type: _is.getType<int>(),
+              nullable: false,
+            ),
+            'id': _is.ParameterDescription(
+              name: 'id',
+              type: _is.getType<int>(),
+              nullable: false,
+            ),
           },
-          call: (session, params) => (endpoints['listings'] as _i3.ListingsEndpoint).delete(
+          call: (
+            _is.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['listings'] as _is42bjh6.ListingsEndpoint).delete(
             session,
             params['farmerId'],
             params['id'],
           ),
         ),
-        'adminListings': _i1.MethodConnector(
+        'adminListings': _is.MethodConnector(
           name: 'adminListings',
           params: {},
-          call: (session, params) => (endpoints['listings'] as _i3.ListingsEndpoint).adminListings(session),
+          call: (
+            _is.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['listings'] as _is42bjh6.ListingsEndpoint)
+                  .adminListings(session),
         ),
-        'moderate': _i1.MethodConnector(
+        'moderate': _is.MethodConnector(
           name: 'moderate',
           params: {
-            'id': _i1.ParameterDescription(name: 'id', type: _i1.getType<int>(), nullable: false),
-            'newStatus': _i1.ParameterDescription(name: 'newStatus', type: _i1.getType<String>(), nullable: false),
+            'id': _is.ParameterDescription(
+              name: 'id',
+              type: _is.getType<int>(),
+              nullable: false,
+            ),
+            'newStatus': _is.ParameterDescription(
+              name: 'newStatus',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
           },
-          call: (session, params) => (endpoints['listings'] as _i3.ListingsEndpoint).moderate(
+          call: (
+            _is.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['listings'] as _is42bjh6.ListingsEndpoint).moderate(
             session,
             params['id'],
             params['newStatus'],
@@ -237,37 +537,73 @@ class Endpoints extends _i1.EndpointDispatch {
         ),
       },
     );
-
-    connectors['orders'] = _i1.EndpointConnector(
+    connectors['orders'] = _is.EndpointConnector(
       name: 'orders',
       endpoint: endpoints['orders']!,
       methodConnectors: {
-        'getOrders': _i1.MethodConnector(
+        'getOrders': _is.MethodConnector(
           name: 'getOrders',
           params: {
-            'userId': _i1.ParameterDescription(name: 'userId', type: _i1.getType<int>(), nullable: false),
-            'userRole': _i1.ParameterDescription(name: 'userRole', type: _i1.getType<String>(), nullable: false),
+            'userId': _is.ParameterDescription(
+              name: 'userId',
+              type: _is.getType<int>(),
+              nullable: false,
+            ),
+            'userRole': _is.ParameterDescription(
+              name: 'userRole',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
           },
-          call: (session, params) => (endpoints['orders'] as _i4.OrdersEndpoint).getOrders(
+          call: (
+            _is.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['orders'] as _ircrt8gp.OrdersEndpoint).getOrders(
             session,
             params['userId'],
             params['userRole'],
           ),
         ),
-        'getCarriers': _i1.MethodConnector(
+        'getCarriers': _is.MethodConnector(
           name: 'getCarriers',
           params: {},
-          call: (session, params) => (endpoints['orders'] as _i4.OrdersEndpoint).getCarriers(session),
+          call: (
+            _is.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['orders'] as _ircrt8gp.OrdersEndpoint)
+                  .getCarriers(session),
         ),
-        'requestOrder': _i1.MethodConnector(
+        'requestOrder': _is.MethodConnector(
           name: 'requestOrder',
           params: {
-            'buyerId': _i1.ParameterDescription(name: 'buyerId', type: _i1.getType<int>(), nullable: false),
-            'buyerName': _i1.ParameterDescription(name: 'buyerName', type: _i1.getType<String>(), nullable: false),
-            'listingId': _i1.ParameterDescription(name: 'listingId', type: _i1.getType<int>(), nullable: false),
-            'quantityKg': _i1.ParameterDescription(name: 'quantityKg', type: _i1.getType<int>(), nullable: false),
+            'buyerId': _is.ParameterDescription(
+              name: 'buyerId',
+              type: _is.getType<int>(),
+              nullable: false,
+            ),
+            'buyerName': _is.ParameterDescription(
+              name: 'buyerName',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+            'listingId': _is.ParameterDescription(
+              name: 'listingId',
+              type: _is.getType<int>(),
+              nullable: false,
+            ),
+            'quantityKg': _is.ParameterDescription(
+              name: 'quantityKg',
+              type: _is.getType<int>(),
+              nullable: false,
+            ),
           },
-          call: (session, params) => (endpoints['orders'] as _i4.OrdersEndpoint).requestOrder(
+          call: (
+            _is.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['orders'] as _ircrt8gp.OrdersEndpoint).requestOrder(
             session,
             buyerId: params['buyerId'],
             buyerName: params['buyerName'],
@@ -275,16 +611,40 @@ class Endpoints extends _i1.EndpointDispatch {
             quantityKg: params['quantityKg'],
           ),
         ),
-        'changeOrder': _i1.MethodConnector(
+        'changeOrder': _is.MethodConnector(
           name: 'changeOrder',
           params: {
-            'userId': _i1.ParameterDescription(name: 'userId', type: _i1.getType<int>(), nullable: false),
-            'userRole': _i1.ParameterDescription(name: 'userRole', type: _i1.getType<String>(), nullable: false),
-            'orderId': _i1.ParameterDescription(name: 'orderId', type: _i1.getType<int>(), nullable: false),
-            'action': _i1.ParameterDescription(name: 'action', type: _i1.getType<String>(), nullable: false),
-            'carrierId': _i1.ParameterDescription(name: 'carrierId', type: _i1.getType<int?>(), nullable: true),
+            'userId': _is.ParameterDescription(
+              name: 'userId',
+              type: _is.getType<int>(),
+              nullable: false,
+            ),
+            'userRole': _is.ParameterDescription(
+              name: 'userRole',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+            'orderId': _is.ParameterDescription(
+              name: 'orderId',
+              type: _is.getType<int>(),
+              nullable: false,
+            ),
+            'action': _is.ParameterDescription(
+              name: 'action',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+            'carrierId': _is.ParameterDescription(
+              name: 'carrierId',
+              type: _is.getType<int?>(),
+              nullable: true,
+            ),
           },
-          call: (session, params) => (endpoints['orders'] as _i4.OrdersEndpoint).changeOrder(
+          call: (
+            _is.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['orders'] as _ircrt8gp.OrdersEndpoint).changeOrder(
             session,
             userId: params['userId'],
             userRole: params['userRole'],
@@ -295,66 +655,70 @@ class Endpoints extends _i1.EndpointDispatch {
         ),
       },
     );
-
-    connectors['pickupRoom'] = _i1.EndpointConnector(
+    connectors['pickupRoom'] = _is.EndpointConnector(
       name: 'pickupRoom',
       endpoint: endpoints['pickupRoom']!,
       methodConnectors: {
-        'getPickupRoom': _i1.MethodConnector(
+        'getPickupRoom': _is.MethodConnector(
           name: 'getPickupRoom',
           params: {
-            'userId': _i1.ParameterDescription(name: 'userId', type: _i1.getType<int>(), nullable: false),
-            'userRole': _i1.ParameterDescription(name: 'userRole', type: _i1.getType<String>(), nullable: false),
-            'orderId': _i1.ParameterDescription(name: 'orderId', type: _i1.getType<int>(), nullable: false),
+            'userId': _is.ParameterDescription(
+              name: 'userId',
+              type: _is.getType<int>(),
+              nullable: false,
+            ),
+            'userRole': _is.ParameterDescription(
+              name: 'userRole',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+            'orderId': _is.ParameterDescription(
+              name: 'orderId',
+              type: _is.getType<int>(),
+              nullable: false,
+            ),
           },
-          call: (session, params) => (endpoints['pickupRoom'] as _i5.PickupRoomEndpoint).getPickupRoom(
+          call: (
+            _is.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['pickupRoom'] as _ie01veol.PickupRoomEndpoint)
+                  .getPickupRoom(
             session,
             params['userId'],
             params['userRole'],
             params['orderId'],
           ),
         ),
-        'arrive': _i1.MethodConnector(
+        'arrive': _is.MethodConnector(
           name: 'arrive',
           params: {
-            'userId': _i1.ParameterDescription(name: 'userId', type: _i1.getType<int>(), nullable: false),
-            'userRole': _i1.ParameterDescription(name: 'userRole', type: _i1.getType<String>(), nullable: false),
-            'orderId': _i1.ParameterDescription(name: 'orderId', type: _i1.getType<int>(), nullable: false),
+            'userId': _is.ParameterDescription(
+              name: 'userId',
+              type: _is.getType<int>(),
+              nullable: false,
+            ),
+            'userRole': _is.ParameterDescription(
+              name: 'userRole',
+              type: _is.getType<String>(),
+              nullable: false,
+            ),
+            'orderId': _is.ParameterDescription(
+              name: 'orderId',
+              type: _is.getType<int>(),
+              nullable: false,
+            ),
           },
-          call: (session, params) => (endpoints['pickupRoom'] as _i5.PickupRoomEndpoint).arrive(
+          call: (
+            _is.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['pickupRoom'] as _ie01veol.PickupRoomEndpoint).arrive(
             session,
             params['userId'],
             params['userRole'],
             params['orderId'],
           ),
-        ),
-      },
-    );
-
-    connectors['insights'] = _i1.EndpointConnector(
-      name: 'insights',
-      endpoint: endpoints['insights']!,
-      methodConnectors: {
-        'matches': _i1.MethodConnector(
-          name: 'matches',
-          params: {
-            'crop': _i1.ParameterDescription(name: 'crop', type: _i1.getType<String>(), nullable: false),
-            'district': _i1.ParameterDescription(name: 'district', type: _i1.getType<String>(), nullable: false),
-            'quantityKg': _i1.ParameterDescription(name: 'quantityKg', type: _i1.getType<int>(), nullable: false),
-            'maxPrice': _i1.ParameterDescription(name: 'maxPrice', type: _i1.getType<double?>(), nullable: true),
-          },
-          call: (session, params) => (endpoints['insights'] as _i6.InsightsEndpoint).matches(
-            session,
-            crop: params['crop'],
-            district: params['district'],
-            quantityKg: params['quantityKg'],
-            maxPrice: params['maxPrice'],
-          ),
-        ),
-        'impact': _i1.MethodConnector(
-          name: 'impact',
-          params: {},
-          call: (session, params) => (endpoints['insights'] as _i6.InsightsEndpoint).impact(session),
         ),
       },
     );

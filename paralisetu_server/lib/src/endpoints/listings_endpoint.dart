@@ -15,13 +15,13 @@ class ListingsEndpoint extends Endpoint {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
 
-    var listings = await session.db.find<ParaliListing>(
+    var listings = await ParaliListing.db.find(
+      session,
       where: (t) =>
           t.status.equals('ACTIVE') &
           (t.availableUntil >= today) &
           (t.availableKg >= minKg),
-      orderBy: (t) => t.id,
-      orderDescending: true,
+      orderByList: (t) => [t.id.desc()],
       limit: 100,
       offset: offset,
     );
@@ -55,7 +55,7 @@ class ListingsEndpoint extends Endpoint {
     int? viewerUserId,
     String? viewerRole,
   }) async {
-    final listing = await session.db.findById<ParaliListing>(id);
+    final listing = await ParaliListing.db.findById(session, id);
     if (listing == null || listing.status == 'DELETED') {
       throw EndpointException(message: 'Listing not found.', errorType: EndpointExceptionType.notFound);
     }
@@ -72,10 +72,10 @@ class ListingsEndpoint extends Endpoint {
   }
 
   Future<List<ParaliListing>> farmerListings(Session session, int farmerId) async {
-    return await session.db.find<ParaliListing>(
-      where: (t) => t.farmerId.equals(farmerId) & (t.status != 'DELETED'),
-      orderBy: (t) => t.id,
-      orderDescending: true,
+    return await ParaliListing.db.find(
+      session,
+      where: (t) => t.farmerId.equals(farmerId) & t.status.notEquals('DELETED'),
+      orderByList: (t) => [t.id.desc()],
     );
   }
 
@@ -109,7 +109,7 @@ class ListingsEndpoint extends Endpoint {
       version: 0,
     );
 
-    return await session.db.insertRow<ParaliListing>(listing);
+    return await ParaliListing.db.insertRow(session, listing);
   }
 
   Future<ParaliListing> edit(
@@ -128,7 +128,7 @@ class ListingsEndpoint extends Endpoint {
   }) async {
     _validateDates(harvestDate, availableFrom, availableUntil);
 
-    final listing = await session.db.findById<ParaliListing>(id);
+    final listing = await ParaliListing.db.findById(session, id);
     if (listing == null || listing.farmerId != farmerId || !['ACTIVE', 'PAUSED'].contains(listing.status)) {
       throw EndpointException(message: 'Listing not found or unavailable for editing.', errorType: EndpointExceptionType.notFound);
     }
@@ -152,7 +152,7 @@ class ListingsEndpoint extends Endpoint {
       version: version + 1,
     );
 
-    return await session.db.updateRow<ParaliListing>(updated);
+    return await ParaliListing.db.updateRow(session, updated);
   }
 
   Future<void> status(Session session, int farmerId, int id, String newStatus) async {
@@ -161,28 +161,28 @@ class ListingsEndpoint extends Endpoint {
       throw EndpointException(message: 'Choose ACTIVE or PAUSED.', errorType: EndpointExceptionType.badRequest);
     }
 
-    final listing = await session.db.findById<ParaliListing>(id);
+    final listing = await ParaliListing.db.findById(session, id);
     if (listing == null || listing.farmerId != farmerId || !['ACTIVE', 'PAUSED'].contains(listing.status)) {
       throw EndpointException(message: 'Listing not found or unavailable for this action.', errorType: EndpointExceptionType.notFound);
     }
 
-    await session.db.updateRow<ParaliListing>(listing.copyWith(status: cleanStatus));
+    await ParaliListing.db.updateRow(session, listing.copyWith(status: cleanStatus));
   }
 
   Future<void> delete(Session session, int farmerId, int id) async {
-    final listing = await session.db.findById<ParaliListing>(id);
+    final listing = await ParaliListing.db.findById(session, id);
     if (listing == null || listing.farmerId != farmerId || listing.status == 'DELETED') {
       throw EndpointException(message: 'Listing not found.', errorType: EndpointExceptionType.notFound);
     }
 
-    await session.db.updateRow<ParaliListing>(listing.copyWith(status: 'DELETED'));
+    await ParaliListing.db.updateRow(session, listing.copyWith(status: 'DELETED'));
   }
 
   Future<List<ParaliListing>> adminListings(Session session) async {
-    return await session.db.find<ParaliListing>(
-      where: (t) => t.status != 'DELETED',
-      orderBy: (t) => t.id,
-      orderDescending: true,
+    return await ParaliListing.db.find(
+      session,
+      where: (t) => t.status.notEquals('DELETED'),
+      orderByList: (t) => [t.id.desc()],
     );
   }
 
@@ -192,12 +192,12 @@ class ListingsEndpoint extends Endpoint {
       throw EndpointException(message: 'Choose REMOVED or PAUSED.', errorType: EndpointExceptionType.badRequest);
     }
 
-    final listing = await session.db.findById<ParaliListing>(id);
+    final listing = await ParaliListing.db.findById(session, id);
     if (listing == null) {
       throw EndpointException(message: 'Listing not found.', errorType: EndpointExceptionType.notFound);
     }
 
-    await session.db.updateRow<ParaliListing>(listing.copyWith(status: clean));
+    await ParaliListing.db.updateRow(session, listing.copyWith(status: clean));
   }
 
   void _validateDates(DateTime harvestDate, DateTime availableFrom, DateTime availableUntil) {

@@ -38,7 +38,8 @@ class InsightsEndpoint extends Endpoint {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
 
-    final candidates = await session.db.find<ParaliListing>(
+    final candidates = await ParaliListing.db.find(
+      session,
       where: (t) =>
           t.status.equals('ACTIVE') &
           (t.availableUntil >= today) &
@@ -62,7 +63,8 @@ class InsightsEndpoint extends Endpoint {
   }
 
   Future<ImpactStats> impact(Session session) async {
-    final deliveredOrders = await session.db.find<ParaliOrder>(
+    final deliveredOrders = await ParaliOrder.db.find(
+      session,
       where: (t) => t.status.equals('DELIVERED'),
     );
 
