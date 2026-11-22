@@ -1,0 +1,9 @@
+name: paralisetu_workspace
+description: ParaliSetu monorepo workspace containing Serverpod server, client, and Flutter app
+environment:
+  sdk: '>=3.4.0 <4.0.0'
+
+workspace:
+  - paralisetu_server
+  - paralisetu_client
+  - paralisetu_flutter

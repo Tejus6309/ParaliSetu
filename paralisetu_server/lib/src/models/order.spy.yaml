@@ -1,0 +1,21 @@
+class: ParaliOrder
+table: paralisetu_order
+fields:
+  listingId: int
+  farmerId: int
+  buyerId: int
+  carrierId: int?
+  quantityKg: int
+  pricePerKg: double
+  crop: String
+  district: String
+  status: String # REQUESTED, ACCEPTED, REJECTED, CANCELLED, ASSIGNED, PICKED_UP, DELIVERED
+  farmerArrivedAt: DateTime?
+  carrierArrivedAt: DateTime?
+  createdAt: DateTime
+  farmerName: String?
+  buyerName: String?
+  carrierName: String?
+indexes:
+  paralisetu_order_listing_status_idx:
+    fields: listingId, status

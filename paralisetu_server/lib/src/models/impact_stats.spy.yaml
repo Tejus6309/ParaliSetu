@@ -1,0 +1,14 @@
+class: CropDelivery
+fields:
+  crop: String
+  deliveredKg: int
+
+---
+
+class: ImpactStats
+fields:
+  deliveries: int
+  deliveredKg: int
+  estimatedDivertedKg: int
+  byCrop: List<CropDelivery>
+  caveat: String

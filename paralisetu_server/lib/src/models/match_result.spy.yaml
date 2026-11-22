@@ -1,0 +1,5 @@
+class: MatchResult
+fields:
+  listing: ParaliListing
+  score: int
+  reasons: List<String>

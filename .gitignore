@@ -9,3 +9,12 @@ backend/target/
 __pycache__/
 
 data/
+
+# Serverpod & Dart/Flutter
+config/passwords.yaml
+.dart_tool/
+.packages
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+
