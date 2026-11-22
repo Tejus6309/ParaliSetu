@@ -25,7 +25,8 @@
    -------------------------------------------------------------------------- */
 .account-menu {
   position: relative;
-  max-width: 55%;
+  grid-area: account;
+  max-width: min(16rem, 40vw);
 }
 
 .account-menu summary {
@@ -150,7 +151,6 @@
 
 .auth-width,
 .top-inner,
-.nav-inner,
 .content,
 .foot {
   width: 100%;
@@ -336,7 +336,6 @@ textarea,
 
 .content {
   flex: 1;
-  padding-block: clamp(1.5rem, 3.5vw, 3.5rem);
 }
 
 .profile-content {
@@ -445,14 +444,8 @@ textarea,
     font-size: 1.3rem;
     margin-bottom: 0.4rem;
   }
-  .top-inner {
-    flex-wrap: nowrap;
-  }
   .account-name {
     max-width: 22vw;
-  }
-  .nav-inner {
-    gap: 0 0.75rem;
   }
   .brand {
     font-size: 1.6rem;
@@ -461,7 +454,7 @@ textarea,
 
 @media (max-width: 460px) {
   .top-inner {
-    gap: 0.5rem;
+    column-gap: 0.5rem;
   }
   .account-menu {
     min-width: 0;

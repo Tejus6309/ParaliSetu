@@ -91,12 +91,17 @@ function App() {
   return <>
     <WindLeavesBackground />
     <a className="skip" href="#main" onClick={event => { event.preventDefault(); document.getElementById('main')?.focus(); }}>Skip to content</a>
-    <header className="top"><div className="container top-inner"><Brand />
-      <AccountMenu user={user} busy={busy} onLogout={() => void run(async () => {
-        await api('/auth/logout', 'POST'); setUser(null); location.hash = 'welcome';
-      })} />
-    </div></header>
-    <nav className="nav" aria-label="Workspace"><div className="container nav-inner">{nav.map(([key, label]) => <a key={key} href={'#' + key} aria-current={!details && key === page ? 'page' : undefined}>{label}</a>)}</div></nav>
+    <header className="top">
+      <div className="container top-inner">
+        <Brand />
+        <nav className="nav" aria-label="Workspace">
+          {nav.map(([key, label]) => <a key={key} href={'#' + key} aria-current={!details && key === page ? 'page' : undefined}>{label}</a>)}
+        </nav>
+        <AccountMenu user={user} busy={busy} onLogout={() => void run(async () => {
+          await api('/auth/logout', 'POST'); setUser(null); location.hash = 'welcome';
+        })} />
+      </div>
+    </header>
     <main id="main" tabIndex={-1} className={page === 'profile' ? 'profile-content' : 'container content'}><Alert error={error} />
       {details && user.role === 'BUYER' ? <ListingDetail key={route} id={Number(details[1])} />
         : page === 'market' || page === 'matches' ? <Marketplace key={page} />
